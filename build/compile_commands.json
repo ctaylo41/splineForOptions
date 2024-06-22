@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/Users/colintaylortaylor/Documents/splineForOptions/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/colintaylortaylor/Documents/splineForOptions/src/include -I/Users/colintaylortaylor/Documents/splineForOptions/src -isystem /Users/colintaylortaylor/anaconda3/include/python3.11 -isystem /Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages/numpy/core/include -isystem /opt/homebrew/include -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -o CMakeFiles/OptionsSpline.dir/src/main.cpp.o -c /Users/colintaylortaylor/Documents/splineForOptions/src/main.cpp",
+  "file": "/Users/colintaylortaylor/Documents/splineForOptions/src/main.cpp",
+  "output": "CMakeFiles/OptionsSpline.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/colintaylortaylor/Documents/splineForOptions/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/colintaylortaylor/Documents/splineForOptions/src/include -I/Users/colintaylortaylor/Documents/splineForOptions/src -isystem /Users/colintaylortaylor/anaconda3/include/python3.11 -isystem /Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages/numpy/core/include -isystem /opt/homebrew/include -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -o CMakeFiles/OptionsSpline.dir/src/Graph.cpp.o -c /Users/colintaylortaylor/Documents/splineForOptions/src/Graph.cpp",
+  "file": "/Users/colintaylortaylor/Documents/splineForOptions/src/Graph.cpp",
+  "output": "CMakeFiles/OptionsSpline.dir/src/Graph.cpp.o"
+}
+]
