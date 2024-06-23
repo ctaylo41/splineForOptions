@@ -1,3 +1,5 @@
 /Users/colintaylortaylor/Documents/splineForOptions/build/CMakeFiles/OptionsSpline.dir
+/Users/colintaylortaylor/Documents/splineForOptions/build/CMakeFiles/matrix_tests.dir
+/Users/colintaylortaylor/Documents/splineForOptions/build/CMakeFiles/test.dir
 /Users/colintaylortaylor/Documents/splineForOptions/build/CMakeFiles/edit_cache.dir
 /Users/colintaylortaylor/Documents/splineForOptions/build/CMakeFiles/rebuild_cache.dir

@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "matrix.h"
 #include <iostream>
 Graph::Graph(std::vector<double> x, std::vector<double> y, std::vector<double> z)
 {
@@ -44,3 +45,4 @@ double Graph::evalNewtonInterpolation(double xInterpolated)
     }
     return result;
 }
+

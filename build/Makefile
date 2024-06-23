@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/colintaylortaylor/Documents/splineForOptions/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/opt/homebrew/Cellar/cmake/3.26.4/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -129,6 +139,19 @@ OptionsSpline/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OptionsSpline.dir/build.make CMakeFiles/OptionsSpline.dir/build
 .PHONY : OptionsSpline/fast
 
+#=============================================================================
+# Target rules for targets named matrix_tests
+
+# Build rule for target.
+matrix_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrix_tests
+.PHONY : matrix_tests
+
+# fast build rule for target.
+matrix_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/build
+.PHONY : matrix_tests/fast
+
 src/Graph.o: src/Graph.cpp.o
 .PHONY : src/Graph.o
 
@@ -177,6 +200,57 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OptionsSpline.dir/build.make CMakeFiles/OptionsSpline.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/matrix.o: src/matrix.cpp.o
+.PHONY : src/matrix.o
+
+# target to build an object file
+src/matrix.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OptionsSpline.dir/build.make CMakeFiles/OptionsSpline.dir/src/matrix.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/matrix.cpp.o
+.PHONY : src/matrix.cpp.o
+
+src/matrix.i: src/matrix.cpp.i
+.PHONY : src/matrix.i
+
+# target to preprocess a source file
+src/matrix.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OptionsSpline.dir/build.make CMakeFiles/OptionsSpline.dir/src/matrix.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/matrix.cpp.i
+.PHONY : src/matrix.cpp.i
+
+src/matrix.s: src/matrix.cpp.s
+.PHONY : src/matrix.s
+
+# target to generate assembly for a file
+src/matrix.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OptionsSpline.dir/build.make CMakeFiles/OptionsSpline.dir/src/matrix.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/matrix.cpp.s
+.PHONY : src/matrix.cpp.s
+
+src/tests/matrix_tests.o: src/tests/matrix_tests.cpp.o
+.PHONY : src/tests/matrix_tests.o
+
+# target to build an object file
+src/tests/matrix_tests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/tests/matrix_tests.cpp.o
+.PHONY : src/tests/matrix_tests.cpp.o
+
+src/tests/matrix_tests.i: src/tests/matrix_tests.cpp.i
+.PHONY : src/tests/matrix_tests.i
+
+# target to preprocess a source file
+src/tests/matrix_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/tests/matrix_tests.cpp.i
+.PHONY : src/tests/matrix_tests.cpp.i
+
+src/tests/matrix_tests.s: src/tests/matrix_tests.cpp.s
+.PHONY : src/tests/matrix_tests.s
+
+# target to generate assembly for a file
+src/tests/matrix_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrix_tests.dir/build.make CMakeFiles/matrix_tests.dir/src/tests/matrix_tests.cpp.s
+.PHONY : src/tests/matrix_tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -185,13 +259,21 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... OptionsSpline"
+	@echo "... matrix_tests"
 	@echo "... src/Graph.o"
 	@echo "... src/Graph.i"
 	@echo "... src/Graph.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/matrix.o"
+	@echo "... src/matrix.i"
+	@echo "... src/matrix.s"
+	@echo "... src/tests/matrix_tests.o"
+	@echo "... src/tests/matrix_tests.i"
+	@echo "... src/tests/matrix_tests.s"
 .PHONY : help
 
 

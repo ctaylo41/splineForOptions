@@ -23,9 +23,6 @@ CMAKE_AR:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ar
 //No help, variable specified on the command line.
 CMAKE_BUILD_TYPE:STRING=Debug
 
-//Enable/Disable color output during build.
-CMAKE_COLOR_MAKEFILE:BOOL=ON
-
 //CXX compiler
 CMAKE_CXX_COMPILER:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/c++
 
@@ -95,8 +92,8 @@ CMAKE_INSTALL_PREFIX:PATH=/usr/local
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ld
 
-//Path to a program.
-CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
+//Program used to build from build.ninja files.
+CMAKE_MAKE_PROGRAM:FILEPATH=/opt/homebrew/bin/ninja
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -236,6 +233,9 @@ CURL_LIBRARY_DEBUG:FILEPATH=CURL_LIBRARY_DEBUG-NOTFOUND
 //Path to a library.
 CURL_LIBRARY_RELEASE:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libcurl.tbd
 
+//The directory containing a CMake configuration file for GTest.
+GTest_DIR:PATH=/Users/colintaylortaylor/anaconda3/lib/cmake/GTest
+
 //Value Computed by CMake
 OptionsSpline_BINARY_DIR:STATIC=/Users/colintaylortaylor/Documents/splineForOptions/build
 
@@ -274,8 +274,6 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=26
 //Patch version of cmake used to create the current loaded cache
 CMAKE_CACHE_PATCH_VERSION:INTERNAL=4
-//ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
-CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/opt/homebrew/Cellar/cmake/3.26.4/bin/cmake
 //Path to cpack program executable.
@@ -325,13 +323,15 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Name of external makefile project generator.
 CMAKE_EXTRA_GENERATOR:INTERNAL=
 //Name of generator.
-CMAKE_GENERATOR:INTERNAL=Unix Makefiles
+CMAKE_GENERATOR:INTERNAL=Ninja
 //Generator instance identifier.
 CMAKE_GENERATOR_INSTANCE:INTERNAL=
 //Name of generator platform.
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Test CMAKE_HAVE_LIBC_PTHREAD
+CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/Users/colintaylortaylor/Documents/splineForOptions
@@ -407,6 +407,8 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libcurl.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include][c ][v8.4.0()]
+//Details about finding GTest
+FIND_PACKAGE_MESSAGE_DETAILS_GTest:INTERNAL=[/Users/colintaylortaylor/anaconda3/lib/cmake/GTest/GTestConfig.cmake][c ][v1.10.0()]
 //Details about finding Python3
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/Users/colintaylortaylor/anaconda3/bin/python3.11][/Users/colintaylortaylor/anaconda3/include/python3.11][/Users/colintaylortaylor/anaconda3/lib/libpython3.11.dylib][/Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages/numpy/core/include][cfound components: Interpreter Development NumPy Development.Module Development.Embed ][v3.11.5(3.11.5)]
 //Details about finding nlohmann_json
@@ -463,8 +465,6 @@ _Python3_INCLUDE_DIR:INTERNAL=/Users/colintaylortaylor/anaconda3/include/python3
 //Python3 Properties
 _Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;5;64;;cpython-311-darwin;abi3;/Users/colintaylortaylor/anaconda3/lib/python3.11;/Users/colintaylortaylor/anaconda3/lib/python3.11;/Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages;/Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=e71248d00d0e0f966d160c44fb378598
-//Interpreter reason failure
-_Python3_Interpreter_REASON_FAILURE:INTERNAL=
 //Path to a library.
 _Python3_LIBRARY_RELEASE:INTERNAL=/Users/colintaylortaylor/anaconda3/lib/libpython3.11.dylib
 _Python3_NUMPY_SIGNATURE:INTERNAL=54bf4d2ae0280dd539954d9952281ad3

@@ -4,9 +4,9 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/colintaylortaylor/Documents/splineForOptions/src/include -I/Users/colintaylortaylor/Documents/splineForOptions/src -isystem /Users/colintaylortaylor/anaconda3/include/python3.11 -isystem /Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages/numpy/core/include -isystem /opt/homebrew/include
+CXX_INCLUDES = -I/Users/colintaylortaylor/Documents/splineForOptions/src/include -isystem /Users/colintaylortaylor/anaconda3/include/python3.11 -isystem /Users/colintaylortaylor/anaconda3/lib/python3.11/site-packages/numpy/core/include -isystem /opt/homebrew/include
 
-CXX_FLAGSarm64 = -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+CXX_FLAGSarm64 = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
 
-CXX_FLAGS = -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+CXX_FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
 
