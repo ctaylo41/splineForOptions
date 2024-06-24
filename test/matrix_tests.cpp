@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
-#include "../matrix.h" 
+#include "../src/matrix.h" 
 
-/*
-// Test the Matrix constructor
 TEST(MatrixTest, HandlesConstruction) {
     Matrix m(2, 3);
     EXPECT_EQ(m.getRows(), 2);
@@ -34,11 +32,4 @@ TEST(MatrixTest, HandlesMultiply) {
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
-}
-*/
-TEST(HelloTest, BasicAssertions) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
 }
