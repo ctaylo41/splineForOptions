@@ -9,6 +9,7 @@ class Matrix {
         int cols;
         std::vector<std::vector<double> > data;
         Matrix(int rows, int cols);
+        Matrix(std::vector<std::vector<double> > data);
         Matrix Multiply(Matrix& a, Matrix& b);
         Matrix Transpose(Matrix& a);
         Matrix Inverse(Matrix& a);
@@ -18,5 +19,6 @@ class Matrix {
         int getCols();
         void set(int i, int j, double value);
         std::vector<std::vector<double> > getData();
+        bool equals(Matrix& a, Matrix& b);
 };
 #endif

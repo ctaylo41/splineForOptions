@@ -70,7 +70,14 @@
 			"exception": "cpp",
 			"memory": "cpp",
 			"system_error": "cpp",
-			"type_traits": "cpp"
+			"type_traits": "cpp",
+			"condition_variable": "cpp",
+			"csignal": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"regex": "cpp",
+			"set": "cpp",
+			"unordered_set": "cpp"
 		}
 	}
 }

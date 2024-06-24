@@ -12,6 +12,20 @@ Matrix::Matrix(int rows, int cols)
     }
 }
 
+Matrix::Matrix(std::vector<std::vector<double> > data)
+{
+    this->data = data;
+    for (int i = 0; i < data.size(); i++)
+    {
+        if (data[i].size() != data[0].size())
+        {
+            throw std::invalid_argument("All rows must have the same number of columns");
+        }
+    }
+    this->rows = data.size();
+    this->cols = data[0].size();
+}
+
 std::vector<std::vector<double> > Matrix::getData()
 {
     return data;
@@ -139,4 +153,22 @@ Matrix Matrix::CholeskyDecomp(Matrix &a)
         }
     }
     return result;
+}
+bool Matrix::equals(Matrix &a, Matrix &b)
+{
+    if (a.rows != b.rows || a.cols != b.cols)
+    {
+        return false;
+    }
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < a.cols; j++)
+        {
+            if (a.data[i][j] != b.data[i][j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }

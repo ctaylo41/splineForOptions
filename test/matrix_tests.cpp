@@ -21,11 +21,17 @@ TEST(MatrixTest, HandlesGet) {
 
 // Test the Multiply method
 TEST(MatrixTest, HandlesMultiply) {
-    Matrix a(2, 3);
-    Matrix b(3, 2);
+    std::vector<std::vector<double> > data1 = {{1, 2}, {3, 4}};
+    std::vector<std::vector<double> > data2 = {{5, 6}, {7, 8}};
+    Matrix a(data1);
+    Matrix b(data2);
+
     // Populate a and b with values...
     Matrix result = a.Multiply(a, b);
-    // Assuming you have a way to verify the contents of result...
+    std::vector<std::vector<double>> res = {{19, 22}, {43, 50}};
+    Matrix expected(res);
+    bool equal = a.equals(result, expected);
+    EXPECT_TRUE(equal);
     
 }
 
