@@ -72,7 +72,7 @@ TEST(MatrixTest, HandlesMultiply) {
 TEST(MatrixTest, HandlesCholesky) {
     std::vector<std::vector<double> > data = {{25, 15, -5}, {15, 18, 0}, {-5, 0, 11}};
     Matrix a(data);
-    Matrix result = a.CholeskyDecomp(a);
+    Matrix result = a.CholeskyDecomp();
     std::vector<std::vector<double>> res = {{5, 0, 0}, {3, 3, 0}, {-1, 1, 3}};
     Matrix expected(res);
     bool equal = a.equals(result, expected);
@@ -85,7 +85,7 @@ TEST(MatrixTest, HandlesCholesky) {
 TEST(MatrixTest, HandlesInverse) {
     std::vector<std::vector<double> > data = {{4, 1, 1}, {1, 3, -1}, {1, -1, 3}};
     Matrix a(data);
-    Matrix result = a.Inverse(a);
+    Matrix result = a.Inverse();
     std::vector<std::vector<double>> res = {{1/3, -1/6, -1/6}, {-1/6, 11/24, 5/24}, {-1/6, 5/24, 11/24}};
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
@@ -133,16 +133,27 @@ TEST(MatrixTest, LUDecomp) {
     Matrix a(data);
     Matrix L(3);
     Matrix U(3);
-    Matrix::LUDecomposition(a, L, U);
-    Matrix a2 = L.Multiply(L, U);
-    EXPECT_TRUE(a.equals(a2, a));
-    data = {{4, 1, 1}, {1, 3, -1}, {1, -1, 3}};
-    a = Matrix(data);
-    Matrix::LUDecomposition(a, L, U);
-    a2 = L.Multiply(L, U);
-    EXPECT_TRUE(a.equals(a2, a));
+    Matrix P(3);
+    Matrix::LUDecomposition(a, L, U, P);
+    std::vector<std::vector<double>> lower = {{1, 0, 0}, {0.5, 1, 0}, {0.5, 0.2,1}};
+    std::vector<std::vector<double>> upper = {{2, 5, 3}, {0, -2.5, 6.5}, {0, 0, 0.2}};
+    std::vector<std::vector<double>> perm = {{0, 1, 0}, {0, 0, 1}, {1, 0, 0}};
+    Matrix L2(lower);
+    Matrix U2(upper);
+    Matrix P2(perm);
+    EXPECT_TRUE(a.equals(L, L2));
+    EXPECT_TRUE(a.equals(U, U2));
+    EXPECT_TRUE(a.equals(P, P2));
+    
 }
 
+TEST(MatrixTest, HandlesDeterminant) {
+    std::vector<std::vector<double> > data = {{1, 2, 3}, {2, 5, 3}, {1, 0, 8}};
+    Matrix a(data);
+    double result = a.determinant();
+    double expected = -1.0;
+    EXPECT_DOUBLE_EQ(result, expected);
+}
 
 
 int main(int argc, char **argv) {

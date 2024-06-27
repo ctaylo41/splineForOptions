@@ -1,6 +1,8 @@
 #include <vector>
 #include "matrix.h"
 #include <iostream>
+#include <string>
+
 Matrix::Matrix(int rows, int cols)
 {
     this->rows = rows;
@@ -96,34 +98,24 @@ Matrix Matrix::Transpose()
 
     return result;
 }
-Matrix Matrix::Inverse(Matrix &a)
+Matrix Matrix::Inverse()
 {
-    if (a.rows != a.cols)
+    Matrix a = *this;
+    double det = a.determinant();
+    if (det == 0)
     {
-        throw std::invalid_argument("Matrix is not square");
+        throw std::runtime_error("Matrix is singular");
     }
-    int n = a.rows;
-    Matrix result(n);
-    Matrix L(n);
-    Matrix U(n);
-    LUDecomposition(a, L, U);
-    for (int i = 0; i < n; i++)
-    {
-        Matrix b(n);
-        b.data[i][0] = 1;
-        Matrix y = L.forwardSolve(b);
-        Matrix x = U.backwardSolve(y);
-        for (int j = 0; j < n; j++)
-        {
-            result.data[j][i] = x.data[j][0];
-        }
-    }
-    return result;
+    Matrix result(a.rows, a.cols);
+     
+
+    
 }
 
 
-Matrix Matrix::CholeskyDecomp(Matrix &a)
+Matrix Matrix::CholeskyDecomp()
 {
+    Matrix a = *this;
     if (a.rows != a.cols)
     {
         throw std::invalid_argument("Matrix is not square");
@@ -170,7 +162,7 @@ bool Matrix::equals(Matrix &a, Matrix &b)
     {
         for (int j = 0; j < a.cols; j++)
         {
-            if (a.data[i][j] != b.data[i][j])
+            if (std::abs(a.data[i][j]-b.data[i][j])>1e-9)
             {
                 return false;
             }
@@ -233,7 +225,7 @@ Matrix Matrix::forwardSolve(Matrix &b)
     return result;
 }
 
-void Matrix::LUDecomposition(Matrix &a, Matrix &L, Matrix &U)
+void Matrix::LUDecomposition(Matrix &a, Matrix &L, Matrix &U, Matrix &P)
 {
     if (a.rows != a.cols)
     {
@@ -244,27 +236,80 @@ void Matrix::LUDecomposition(Matrix &a, Matrix &L, Matrix &U)
 
     L = Matrix(n);
     U = Matrix(n);
+    P = Matrix(n);
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            double sum = 0;
-            for (int k = 0; k < i; k++)
-            {
-                sum += L.data[i][k] * U.data[k][j];
+    for (int k = 0; k < n - 1; ++k) {
+        double maxval = 0.0;
+        int maxindex = k;
+        // Find the maximum value and its index
+        for (int i = k; i < n; ++i) {
+            if (std::abs(a.get(i,k)) > maxval) {
+                maxval = std::abs(a.get(i,k));
+                maxindex = i;
             }
-            U.data[i][j] = a.data[i][j] - sum;
         }
-
-        for (int j = i + 1; j < n; j++)
-        {
-            double sum = 0;
-            for (int k = 0; k < i; k++)
-            {
-                sum += L.data[j][k] * U.data[k][i];
+        int q = maxindex;
+        if (maxval == 0) throw std::runtime_error("A is singular");
+        if (q != k) {
+            // Swap rows in A and P
+            std::swap(a.data[k], a.data[q]);
+            std::swap(P.data[k], P.data[q]);
+        }
+        // Update the elements below the pivot
+        for (int i = k + 1; i < n; ++i) {
+            a.data[i][k] /= a.data[k][k];
+            for (int j = k + 1; j < n; ++j) {
+                a.data[i][j] -= a.data[i][k] * a.data[k][j];
             }
-            L.data[j][i] = (a.data[j][i] - sum) / U.data[i][i];
         }
     }
+
+    // Split the LU matrix into L and U
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (i > j) {
+                L.data[i][j] = a.data[i][j];
+                U.data[i][j] = 0;
+            } else if (i == j) {
+                L.data[i][j] = 1;
+                U.data[i][j] = a.data[i][j];
+            } else {
+                L.data[i][j] = 0;
+                U.data[i][j] = a.data[i][j];
+            }
+        }
+    }
+}
+
+std::string Matrix::toString()
+{
+    std::string result = "";
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            result += std::to_string(data[i][j]) + " ";
+        }
+        result += "\n";
+    }
+    return result;
+}
+
+double Matrix::determinant()
+{   Matrix a = *this;
+    if (a.rows != a.cols)
+    {
+        throw std::invalid_argument("Matrix is not square");
+    }
+    int n = a.rows;
+    double det = 1;
+    Matrix L(n);
+    Matrix U(n);
+    Matrix P(n);
+    LUDecomposition(a, L, U, P);
+    for (int i = 0; i < n; i++)
+    {
+        det *= U.data[i][i];
+    }
+    return det;
 }

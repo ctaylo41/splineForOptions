@@ -2,7 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
-
+#include <string>
 class Matrix {
     public:
         int rows;
@@ -12,8 +12,8 @@ class Matrix {
         Matrix(std::vector<std::vector<double> > data);
         Matrix Multiply(Matrix& a, Matrix& b);
         Matrix Transpose();
-        Matrix Inverse(Matrix& a);
-        Matrix CholeskyDecomp(Matrix& a);
+        Matrix Inverse();
+        Matrix CholeskyDecomp();
         double get(int i, int j);
         int getRows();
         int getCols();
@@ -23,7 +23,9 @@ class Matrix {
         Matrix (int n);
         Matrix forwardSolve(Matrix& b);
         Matrix backwardSolve(Matrix& b);
-        double determinant(Matrix& a);
-        static void LUDecomposition(Matrix &a, Matrix &L, Matrix &U);
+        double determinant();
+        static void LUDecomposition(Matrix &a, Matrix &L, Matrix &U, Matrix &P);
+        std::string toString();
+
 };
 #endif
