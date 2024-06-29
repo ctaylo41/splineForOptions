@@ -12,12 +12,14 @@ add_subdirectory(googletest)
 set(Headers
     src/Graph.h
     src/matrix.h
+    src/vector.h
 )
 
 set(Sources
     src/main.cpp
     src/Graph.cpp
     src/matrix.cpp
+    src/vector.cpp
 )
 
 add_library(${This} STATIC ${Sources} ${Headers})

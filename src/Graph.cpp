@@ -46,3 +46,5 @@ double Graph::evalNewtonInterpolation(double xInterpolated)
     return result;
 }
 
+void Graph::linearInterpolation() {
+}

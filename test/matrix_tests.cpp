@@ -5,8 +5,6 @@ TEST(MatrixTest, HandlesConstruction) {
     Matrix m(2, 3);
     std::vector<std::vector<double>> data = {{1,2,3},{4,5,6}};
     Matrix m2(data);
-
-
     EXPECT_EQ(m.getRows(), 2);
     EXPECT_EQ(m.getCols(), 3);
     EXPECT_EQ(m2.getRows(), 2);
@@ -21,7 +19,7 @@ TEST(MatrixTest, HandlesConstruction) {
 TEST(MatrixTes, HandlesTranspose) {
     std::vector<std::vector<double>> data = {{1,2,3},{4,5,6}};
     Matrix m(data);
-    Matrix m2 = m.Transpose();
+    Matrix m2 = m.transpose();
     for(int i = 0; i < m.getRows(); i++){
         for(int j = 0; j < m.getCols(); j++){
             EXPECT_EQ(m.get(i, j), m2.get(j, i));
@@ -30,7 +28,7 @@ TEST(MatrixTes, HandlesTranspose) {
     
     data = {{1,2,3}};
     m = Matrix(data);
-    m2 = m.Transpose();
+    m2 = m.transpose();
     for(int i = 0; i < m.getRows(); i++){
         for(int j = 0; j < m.getCols(); j++){
             EXPECT_EQ(m.get(i, j), m2.get(j, i));
@@ -62,7 +60,7 @@ TEST(MatrixTest, HandlesMultiply) {
     Matrix b(data2);
 
     // Populate a and b with values...
-    Matrix result = a.Multiply(a, b);
+    Matrix result = a*b;
     std::vector<std::vector<double>> res = {{19, 22}, {43, 50}};
     Matrix expected(res);
     bool equal = a.equals(result, expected);
@@ -72,32 +70,27 @@ TEST(MatrixTest, HandlesMultiply) {
 TEST(MatrixTest, HandlesCholesky) {
     std::vector<std::vector<double> > data = {{25, 15, -5}, {15, 18, 0}, {-5, 0, 11}};
     Matrix a(data);
-    Matrix result = a.CholeskyDecomp();
+    Matrix result = a.choleskyDecomp();
     std::vector<std::vector<double>> res = {{5, 0, 0}, {3, 3, 0}, {-1, 1, 3}};
     Matrix expected(res);
     bool equal = a.equals(result, expected);
     EXPECT_TRUE(equal);
-    Matrix a2 = expected.Transpose();
-    Matrix a3 = expected.Multiply(expected,a2);
+    Matrix a2 = expected.transpose();
+    Matrix a3 = expected*a2;
     EXPECT_TRUE(a.equals(a3, a));
 }
+
 
 TEST(MatrixTest, HandlesInverse) {
     std::vector<std::vector<double> > data = {{4, 1, 1}, {1, 3, -1}, {1, -1, 3}};
     Matrix a(data);
-    Matrix result = a.Inverse();
-    std::vector<std::vector<double>> res = {{1/3, -1/6, -1/6}, {-1/6, 11/24, 5/24}, {-1/6, 5/24, 11/24}};
-    for(int i=0;i<3;i++){
-        for(int j=0;j<3;j++){
-            std::cout<<result.get(i,j)<<" ";
-        }
-        std::cout<<std::endl;
-    }
+    Matrix result = a.inverse();
+    std::vector<std::vector<double>> res = {{1.0/3, -1.0/6, -1.0/6}, {-1.0/6, 11.0/24, 5.0/24}, {-1.0/6, 5.0/24, 11.0/24}};
     Matrix expected(res);
     bool equal = a.equals(result, expected);
     EXPECT_TRUE(equal);
     Matrix idenity(3);
-    Matrix a2 = expected.Multiply(a, result);
+    Matrix a2 = a*result;
     EXPECT_TRUE(a.equals(a2, idenity));
 }
 
@@ -153,6 +146,39 @@ TEST(MatrixTest, HandlesDeterminant) {
     double result = a.determinant();
     double expected = -1.0;
     EXPECT_DOUBLE_EQ(result, expected);
+}
+
+
+TEST(MatrixTest, HandlesAddition) {
+    std::vector<std::vector<double> > data = {{1, 2, 3}, {2, 5, 3}, {1, 0, 8}};
+    Matrix a(data);
+    Matrix b(data);
+    Matrix result = a+b;
+    std::vector<std::vector<double>> res = {{2, 4, 6}, {4, 10, 6}, {2, 0, 16}};
+    Matrix expected(res);
+    bool equal = a.equals(result, expected);
+    EXPECT_TRUE(equal);
+}
+
+TEST(MatrixTest, HandlesSubtraction) {
+    std::vector<std::vector<double> > data = {{1, 2, 3}, {2, 5, 3}, {1, 0, 8}};
+    Matrix a(data);
+    Matrix b(data);
+    Matrix result = a-b;
+    std::vector<std::vector<double>> res = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+    Matrix expected(res);
+    bool equal = a.equals(result, expected);
+    EXPECT_TRUE(equal);
+}
+
+TEST(MatrixTest, HandlesScalarMultiplication) {
+    std::vector<std::vector<double> > data = {{1, 2, 3}, {2, 5, 3}, {1, 0, 8}};
+    Matrix a(data);
+    Matrix result = a*2;
+    std::vector<std::vector<double>> res = {{2, 4, 6}, {4, 10, 6}, {2, 0, 16}};
+    Matrix expected(res);
+    bool equal = a.equals(result, expected);
+    EXPECT_TRUE(equal);
 }
 
 

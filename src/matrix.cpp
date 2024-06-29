@@ -65,26 +65,7 @@ void Matrix::set(int i, int j, double value)
     data[i][j] = value;
 }
 
-Matrix Matrix::Multiply(Matrix &a, Matrix &b)
-{
-    if (a.cols != b.rows)
-    {
-        throw std::invalid_argument("Matrix dimensions do not match");
-    }
-    Matrix result(a.rows, b.cols);
-    for (int i = 0; i < a.rows; i++)
-    {
-        for (int j = 0; j < b.cols; j++)
-        {
-            for (int k = 0; k < a.cols; k++)
-            {
-                result.data[i][j] += a.data[i][k] * b.data[k][j];
-            }
-        }
-    }
-    return result;
-}
-Matrix Matrix::Transpose()
+Matrix Matrix::transpose()
 {
     Matrix a = *this;
     Matrix result(a.cols, a.rows);
@@ -98,22 +79,31 @@ Matrix Matrix::Transpose()
 
     return result;
 }
-Matrix Matrix::Inverse()
+Matrix Matrix::inverse()
 {
     Matrix a = *this;
-    double det = a.determinant();
-    if (det == 0)
+    if (a.rows != a.cols)
     {
-        throw std::runtime_error("Matrix is singular");
+        throw std::invalid_argument("Matrix is not square");
     }
-    Matrix result(a.rows, a.cols);
-     
-
+    int n = a.rows;
+    Matrix result(n);
+    Matrix L(n);
+    Matrix U(n);
+    Matrix P(n);    
+    LUDecomposition(a, L, U, P);
+    
+    Matrix b(n);
+    Matrix solve = P*b;
+    Matrix y = L.forwardSolve(solve);
+    Matrix x = U.backwardSolve(y);
+    
+    return x;
     
 }
 
 
-Matrix Matrix::CholeskyDecomp()
+Matrix Matrix::choleskyDecomp()
 {
     Matrix a = *this;
     if (a.rows != a.cols)
@@ -197,7 +187,6 @@ Matrix Matrix::backwardSolve(Matrix &b)
     }
     return result;
 }
-
 Matrix Matrix::forwardSolve(Matrix &b)
 {
     Matrix a = *this;
@@ -313,3 +302,75 @@ double Matrix::determinant()
     }
     return det;
 }
+
+Matrix Matrix::operator*(Matrix &b)
+{
+    Matrix a = *this;
+    if (a.cols != b.rows)
+    {
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    Matrix result(a.rows, b.cols);
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < b.cols; j++)
+        {
+            for (int k = 0; k < a.cols; k++)
+            {
+                result.data[i][j] += a.data[i][k] * b.data[k][j];
+            }
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::operator+(Matrix &b)
+{
+    Matrix a = *this;
+    if (a.rows != b.rows || a.cols != b.cols)
+    {
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    Matrix result(a.rows, a.cols);
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < a.cols; j++)
+        {
+            result.data[i][j] = a.data[i][j] + b.data[i][j];
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::operator-(Matrix &b)
+{
+    Matrix a = *this;
+    if (a.rows != b.rows || a.cols != b.cols)
+    {
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    Matrix result(a.rows, a.cols);
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < a.cols; j++)
+        {
+            result.data[i][j] = a.data[i][j] - b.data[i][j];
+        }
+    }
+    return result;
+}
+
+Matrix Matrix::operator*(double b)
+{
+    Matrix a = *this;
+    Matrix result(a.rows, a.cols);
+    for (int i = 0; i < a.rows; i++)
+    {
+        for (int j = 0; j < a.cols; j++)
+        {
+            result.data[i][j] = a.data[i][j] * b;
+        }
+    }
+    return result;
+}
+

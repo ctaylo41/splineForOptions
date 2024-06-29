@@ -4,11 +4,13 @@ set(This Test)
 
 set(MatrixSources
     ../src/matrix.cpp
+    ../src/vector.cpp
 )
 
 
 set(TestSources
     matrix_tests.cpp
+    vector_tests.cpp
 )
 
 

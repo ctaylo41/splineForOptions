@@ -3,17 +3,23 @@
 
 #include <vector>
 #include <string>
+#include <utility>
+
 class Matrix {
-    public:
+    protected:
         int rows;
         int cols;
         std::vector<std::vector<double> > data;
+    public:        
         Matrix(int rows, int cols);
         Matrix(std::vector<std::vector<double> > data);
-        Matrix Multiply(Matrix& a, Matrix& b);
-        Matrix Transpose();
-        Matrix Inverse();
-        Matrix CholeskyDecomp();
+        Matrix transpose();
+        Matrix inverse();
+        Matrix choleskyDecomp();
+        Matrix operator-(Matrix& b);
+        Matrix operator+(Matrix& b);
+        Matrix operator*(Matrix& b);
+        Matrix operator*(double b);
         double get(int i, int j);
         int getRows();
         int getCols();
