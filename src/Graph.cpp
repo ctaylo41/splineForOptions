@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "matrix.h"
+#include "vector.h"
 #include <iostream>
 Graph::Graph(std::vector<double> x, std::vector<double> y, std::vector<double> z)
 {
@@ -30,10 +31,6 @@ void Graph::newtonInterpolation()
         }
     }
     this->newtonCoeffecients = result;
-    for (int i = 0; i < n; i++)
-    {
-        std::cout << newtonCoeffecients.at(i) << std::endl;
-    }
 }
 
 double Graph::evalNewtonInterpolation(double xInterpolated)
@@ -47,4 +44,36 @@ double Graph::evalNewtonInterpolation(double xInterpolated)
 }
 
 void Graph::linearInterpolation() {
+    std::vector<std::vector<double>> data;
+    for (int i = 0; i < this->x.size(); i++) {
+        data.push_back({1,this->x[i]});
+    }
+    Matrix A(data);
+    Vector b(this->y);
+    Matrix AT = A.transpose();
+    Matrix ATA = AT * A;
+    Matrix ATb = AT * b;
+    Matrix x = ATA.inverse() * ATb;
+
+    this->linearCoeffecients = {x.get(0,0), x.get(1,0)};
+}
+
+double Graph::evalLinearInterpolation(double xInterpolated) {
+    return this->linearCoeffecients[0] + this->linearCoeffecients[1] * xInterpolated;
+}
+
+double Graph::residual() {
+    double sumSquaredRegression = 0;
+    double sumSquaredTotal = 0;
+    double mean = 0;
+    for(int i = 0; i < this->y.size(); i++) {
+        mean += this->y[i];
+    }
+    mean /= this->y.size();
+
+    for (int i = 0; i < this->x.size(); i++) {
+        sumSquaredRegression += pow(this->y[i] - this->evalLinearInterpolation(this->x[i]), 2);
+        sumSquaredTotal += pow(this->y[i] - mean, 2);
+    }
+    return 1 - sumSquaredRegression / sumSquaredTotal;
 }

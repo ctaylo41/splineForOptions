@@ -15,6 +15,8 @@ class Graph {
         void newtonInterpolation();
         double evalNewtonInterpolation(double xInterpolated);
         void linearInterpolation();
+        double evalLinearInterpolation(double xInterpolated);
+        double residual();
 };
 
 #endif

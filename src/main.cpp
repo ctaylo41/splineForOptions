@@ -78,23 +78,23 @@ int main() {
     }
     Graph graph(priceData.timestamp, priceData.close);
     graph.newtonInterpolation();
-
+    graph.linearInterpolation();
     vector<double> interpolatedValues;
+    vector<double> linearInterpolatedValues;
     double diff = priceData.timestamp[priceData.timestamp.size() - 1] - priceData.timestamp[priceData.timestamp.size() - 2];
     for(int i = 0; i < priceData.timestamp.size(); i++) {
-        double originalValue = graph.evalNewtonInterpolation(priceData.timestamp[i]);
-        interpolatedValues.push_back(originalValue);
-        cout << priceData.timestamp[i] << " " << priceData.close[i] << " " << originalValue << endl;
+        double linearInterpolatedValue = graph.evalLinearInterpolation(priceData.timestamp[i]);
+        linearInterpolatedValues.push_back(linearInterpolatedValue);
+        cout << priceData.timestamp[i] << " " << priceData.close[i] << linearInterpolatedValue << endl;
     }   
 
-    for(int i = 1; i <= 5; i++) {
-        double nextTimestamp = priceData.timestamp[priceData.timestamp.size() - 1] + i * diff;
-        double interpolatedValue = graph.evalNewtonInterpolation(nextTimestamp);
-        interpolatedValues.push_back(interpolatedValue);
-        cout << nextTimestamp << " " << interpolatedValue << endl; // Assuming you want to print these as well
-    }
 
-    matplotlibcpp::plot(interpolatedValues);
+    //matplotlibcpp::plot(interpolatedValues);
+    matplotlibcpp::scatter(priceData.timestamp, priceData.close);
+    matplotlibcpp::plot(priceData.timestamp, linearInterpolatedValues);
+    matplotlibcpp::xlabel("Timestamp");
+    matplotlibcpp::ylabel("Close Price");
+    std:: cout << "Residual: " << graph.residual() << std::endl;    
     matplotlibcpp::show();
     return 0;
 }

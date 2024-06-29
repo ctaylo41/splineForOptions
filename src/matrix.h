@@ -20,6 +20,7 @@ class Matrix {
         Matrix operator+(Matrix& b);
         Matrix operator*(Matrix& b);
         Matrix operator*(double b);
+        Matrix operator/(Matrix& b);
         double get(int i, int j);
         int getRows();
         int getCols();

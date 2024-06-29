@@ -13,6 +13,7 @@ set(Headers
     src/Graph.h
     src/matrix.h
     src/vector.h
+    src/PriceData.h
 )
 
 set(Sources
@@ -20,9 +21,10 @@ set(Sources
     src/Graph.cpp
     src/matrix.cpp
     src/vector.cpp
+    src/PriceData.cpp
 )
 
-add_library(${This} STATIC ${Sources} ${Headers})
+add_executable(${This} ${Sources} ${Headers})
 
 add_subdirectory(test)
 

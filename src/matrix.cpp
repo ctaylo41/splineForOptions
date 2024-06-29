@@ -374,3 +374,16 @@ Matrix Matrix::operator*(double b)
     return result;
 }
 
+
+Matrix Matrix::operator/(Matrix &b)
+{
+    Matrix a = *this;
+    Matrix L(a.rows);
+    Matrix U(a.rows);
+    Matrix P(a.rows);
+    LUDecomposition(a, L, U, P);
+    Matrix result = P*b;
+    Matrix y = L.forwardSolve(result);
+    Matrix x = U.backwardSolve(y);
+    return x;
+}
