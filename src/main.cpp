@@ -59,7 +59,9 @@ int main() {
     std::string apiKey = env["API_KEY"];
     vector<double> x = {1,2,3,4,5}; 
     vector<double> y = {1,4,9,16,25};
-    string url = "https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/hour/2023-01-09/2023-01-09?apiKey=" + apiKey;
+    //string url = "https://api.polygon.io/v2/aggs/ticker/NVDA/range/1/hour/2023-01-09/2023-01-09?apiKey=" + apiKey;
+    
+    string url = "https://api.polygon.io/v2/aggs/ticker/O:SPY240701C00535000/range/1/hour/2024-06-28/2024-06-28?apiKey=" + apiKey;
     string response;
     if(!performCurlRequest(url, response)) {
         return 1;
